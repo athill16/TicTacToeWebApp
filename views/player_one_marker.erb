@@ -6,10 +6,12 @@
 	</head>
 	<body>
 		<h2>Player one is <%=player_one%> and player two is <%=player_two%>.</h2>
-		<br>
 		<h4>Would you like player one or two to be X?</h4>
 		<form action = "/playermarker" method = "post">
-			<select name = "player_one">
- 			<option value = "Human">Human</option>
+			<select name = "player_one_marker">
+ 			<option value = "Player one">Player one</option>
+  			<option value = "Player two">Player two</option>
+  			<input type = "submit">
+  		</form>
 	</body>
 </html>
