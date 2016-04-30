@@ -1,14 +1,13 @@
+Player one is <%=player_one%> and player two is <%=player_two%>.
 <!DOCTYPE html>
-
 <html>
 	<head>
 		<title>Web app.</title>	
 	</head>
 	<body>
-		<h2>Player one is <%=player_one%> and player two is <%=player_two%>.</h2>
 		<h4>Would you like player one or two to be X?</h4>
 		<form action = "/playermarker" method = "post">
-			<select name = "player_one_marker">
+			<select name = "choice_for_x">
  			<option value = "Player one">Player one</option>
   			<option value = "Player two">Player two</option>
   			<input type = "submit">
