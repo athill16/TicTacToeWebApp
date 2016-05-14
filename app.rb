@@ -56,7 +56,7 @@ post '/humanchoice' do
 		if has_game_been_won?(session[:board], session[:player_one_marker]) == true
 			erb :player_one_human_wins, :locals => {:board => session[:board]}
 		elsif has_game_been_tied?(session[:board]) == true
-			erb :tie_game
+			erb :tie_game, :locals => {:board => session[:board]}
 		else
 			erb :human, :locals => {:board => board}
 		end
@@ -67,7 +67,7 @@ post '/humanchoice' do
 		if has_game_been_won?(session[:board], session[:player_two_marker]) == true
 			erb :player_two_human_wins, :locals => {:board => session[:board]}
 		elsif has_game_been_tied?(session[:board]) == true
-			erb :tie_game
+			erb :tie_game, :locals => {:board => session[:board]}
 		else
 			erb :human, :locals => {:board => board}
 		end
