@@ -43,7 +43,8 @@ post '/playermarker' do
 			session[:board] = create_new_game_board
 			erb :human_vs_simple, :locals => {:board => session[:board]}
 		else
-			erb :human_vs_sequential
+			session[:board] = create_new_game_board			
+			erb :human_vs_sequential, :locals => {:board => session[:board]}
 		end
 	end
 end
@@ -102,6 +103,29 @@ post '/humanvssimple' do
 		end	
 	end
 end
+
+post '/humanvssequential' do
+	space_chosen = params[:choice]
+	space_chosen = space_chosen.to_i
+	board = update_game_board(session[:board], space_chosen-1, session[:player_one_marker])	
+	if has_game_been_won?(session[:board], session[:player_one_marker]) == true
+		erb :player_one_wins, :locals => {:board => session[:board]}
+	elsif has_game_been_tied?(session[:board]) == true
+		erb :tie_game, :locals => {:board => session[:board]}
+	else
+		array = get_available_spaces(session[:board])
+		move = array[0]
+		board = update_game_board(session[:board], move-1, session[:player_two_marker])
+		if has_game_been_won?(session[:board], session[:player_two_marker]) == true
+			erb :player_two_wins, :locals => {:board => session[:board]}
+		elsif has_game_been_tied?(session[:board]) == true
+			erb :tie_game, :locals => {:board => session[:board]}
+		else
+			erb :human_vs_sequential, :locals => {:board => board}
+		end	
+	end
+end
+
 
 
 
