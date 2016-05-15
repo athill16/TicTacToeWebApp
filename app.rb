@@ -1,5 +1,6 @@
 require 'sinatra'
 require_relative '../Tic-Tac-Toe-Backend/TTT_AI_Game.rb'
+require_relative 'TTT_AI_Game.rb'
 enable :sessions
 
 get '/' do
