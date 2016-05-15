@@ -21,6 +21,7 @@ post '/playermarker' do
 		session[:player_one_marker] = "O"
 		session[:player_two_marker] = "X"
 	end
+	session[:board] = create_new_game_board
 	if session[:player_one] != "Human" && session[:player_two] != "Human"
 		if session[:player_one] == "Simple AI"
 			player1 = {:player_mode => Simple.new, :marker => session[:player_one_marker]}
@@ -36,24 +37,17 @@ post '/playermarker' do
 		board = play_game(player1, player2, board)
 		erb :ai_game, :locals => {:player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker], :player_one => session[:player_one], :player_two => session[:player_two], :board => board}
 	elsif session[:player_one] == "Human" && session[:player_two] == "Human"
-		session[:board] = create_new_game_board
 		erb :human, :locals => {:board => session[:board], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker]}
 	elsif session[:player_one] == "Human" && session[:player_two] == "Simple AI"
-		session[:board] = create_new_game_board
 		erb :human_vs_simple, :locals => {:board => session[:board]}
 	elsif session[:player_one] == "Human" && session[:player_two] == "Sequential AI"
-		session[:board] = create_new_game_board			
 		erb :human_vs_sequential, :locals => {:board => session[:board]}
 	elsif session[:player_one] == "Simple AI" && session[:player_two] == "Human"
-		session[:board] = create_new_game_board			
-		array = get_available_spaces(session[:board])
-		move = array.sample
+		move = Simple.new.get_move(session[:board])
 		board = update_game_board(session[:board], move-1, session[:player_one_marker])		
 		erb :simple_vs_human, :locals => {:board => session[:board]}
 	else
-		session[:board] = create_new_game_board			
-		array = get_available_spaces(session[:board])
-		move = array[0]
+		move = Sequential.new.get_move(session[:board])
 		board = update_game_board(session[:board], move-1, session[:player_one_marker])				
 		erb :sequential_vs_human, :locals => {:board => session[:board]}
 	end
@@ -101,8 +95,7 @@ post '/humanvssimple' do
 	elsif has_game_been_tied?(session[:board]) == true
 		erb :tie_game, :locals => {:board => session[:board]}
 	else
-		array = get_available_spaces(session[:board])
-		move = array.sample
+		move = Simple.new.get_move(session[:board])
 		board = update_game_board(session[:board], move-1, session[:player_two_marker])
 		if has_game_been_won?(session[:board], session[:player_two_marker]) == true
 			erb :player_two_wins, :locals => {:board => session[:board]}
@@ -123,8 +116,7 @@ post '/humanvssequential' do
 	elsif has_game_been_tied?(session[:board]) == true
 		erb :tie_game, :locals => {:board => session[:board]}
 	else
-		array = get_available_spaces(session[:board])
-		move = array[0]
+		move = Sequential.new.get_move(session[:board])
 		board = update_game_board(session[:board], move-1, session[:player_two_marker])
 		if has_game_been_won?(session[:board], session[:player_two_marker]) == true
 			erb :player_two_wins, :locals => {:board => session[:board]}
@@ -145,8 +137,7 @@ post '/simplevshuman' do
 	elsif has_game_been_tied?(session[:board]) == true
 		erb :tie_game, :locals => {:board => session[:board]}
 	else
-		array = get_available_spaces(session[:board])
-		move = array.sample
+		move = Simple.new.get_move(session[:board])
 		board = update_game_board(session[:board], move-1, session[:player_one_marker])		
 		if has_game_been_won?(session[:board], session[:player_one_marker]) == true
 			erb :player_one_wins, :locals => {:board => session[:board]}
@@ -167,8 +158,7 @@ post '/sequentialvshuman' do
 	elsif has_game_been_tied?(session[:board]) == true
 		erb :tie_game, :locals => {:board => session[:board]}
 	else
-		array = get_available_spaces(session[:board])
-		move = array[0]
+		move = Sequential.new.get_move(session[:board])
 		board = update_game_board(session[:board], move-1, session[:player_one_marker])		
 		if has_game_been_won?(session[:board], session[:player_one_marker]) == true
 			erb :player_one_wins, :locals => {:board => session[:board]}
