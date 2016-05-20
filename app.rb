@@ -44,7 +44,7 @@ post '/playermarker' do
 		erb :human_vs_sequential, :locals => {:board => session[:board]}
 	elsif session[:player_one] == "Simple AI" && session[:player_two] == "Human"
 		move = Simple.new.get_move(session[:board])
-		board = update_game_board(session[:board], move-1, session[:player_one_marker])		
+		session[:board] = update_game_board(session[:board], move-1, session[:player_one_marker])		
 		erb :simple_vs_human, :locals => {:board => session[:board]}
 	else
 		move = Sequential.new.get_move(session[:board])
@@ -147,42 +147,50 @@ end
 post '/simplevshuman' do 
 	space_chosen = params[:choice]
 	space_chosen = space_chosen.to_i
-	board = update_game_board(session[:board], space_chosen-1, session[:player_two_marker])	
-	if has_game_been_won?(session[:board], session[:player_two_marker]) == true
-		erb :player_two_wins, :locals => {:board => session[:board]}
-	elsif has_game_been_tied?(session[:board]) == true
-		erb :tie_game, :locals => {:board => session[:board]}
-	else
-		move = Simple.new.get_move(session[:board])
-		board = update_game_board(session[:board], move-1, session[:player_one_marker])		
-		if has_game_been_won?(session[:board], session[:player_one_marker]) == true
-			erb :player_one_wins, :locals => {:board => session[:board]}
+	if valid_position?(session[:board], space_chosen-1) == true
+		session[:board] = update_game_board(session[:board], space_chosen-1, session[:player_two_marker])
+		if has_game_been_won?(session[:board], session[:player_two_marker]) == true
+			erb :player_two_wins, :locals => {:board => session[:board]}
 		elsif has_game_been_tied?(session[:board]) == true
 			erb :tie_game, :locals => {:board => session[:board]}
 		else
-			erb :simple_vs_human, :locals => {:board => board}
+			move = Simple.new.get_move(session[:board])
+			session[:board] = update_game_board(session[:board], move-1, session[:player_one_marker])
+			if has_game_been_won?(session[:board], session[:player_one_marker]) == true
+				erb :player_one_wins, :locals => {:board => session[:board]}
+			elsif has_game_been_tied?(session[:board]) == true
+				erb :tie_game, :locals => {:board => session[:board]}
+			else
+				erb :simple_vs_human, :locals => {:board => session[:board]}
+			end	
 		end
+	elsif valid_position?(session[:board], space_chosen-1) == false
+		erb :simple_vs_human, :locals => {:board => session[:board]}
 	end
 end
 
 post '/sequentialvshuman' do 
 	space_chosen = params[:choice]
 	space_chosen = space_chosen.to_i
-	board = update_game_board(session[:board], space_chosen-1, session[:player_two_marker])	
-	if has_game_been_won?(session[:board], session[:player_two_marker]) == true
-		erb :player_two_wins, :locals => {:board => session[:board]}
-	elsif has_game_been_tied?(session[:board]) == true
-		erb :tie_game, :locals => {:board => session[:board]}
-	else
-		move = Sequential.new.get_move(session[:board])
-		board = update_game_board(session[:board], move-1, session[:player_one_marker])		
-		if has_game_been_won?(session[:board], session[:player_one_marker]) == true
-			erb :player_one_wins, :locals => {:board => session[:board]}
+	if valid_position?(session[:board], space_chosen-1) == true
+		session[:board] = update_game_board(session[:board], space_chosen-1, session[:player_two_marker])
+		if has_game_been_won?(session[:board], session[:player_two_marker]) == true
+			erb :player_two_wins, :locals => {:board => session[:board]}
 		elsif has_game_been_tied?(session[:board]) == true
 			erb :tie_game, :locals => {:board => session[:board]}
 		else
-			erb :sequential_vs_human, :locals => {:board => board}
+			move = Sequential.new.get_move(session[:board])
+			session[:board] = update_game_board(session[:board], move-1, session[:player_one_marker])
+			if has_game_been_won?(session[:board], session[:player_one_marker]) == true
+				erb :player_one_wins, :locals => {:board => session[:board]}
+			elsif has_game_been_tied?(session[:board]) == true
+				erb :tie_game, :locals => {:board => session[:board]}
+			else
+				erb :sequential_vs_human, :locals => {:board => session[:board]}
+			end	
 		end
+	elsif valid_position?(session[:board], space_chosen-1) == false
+		erb :sequential_vs_human, :locals => {:board => session[:board]}
 	end
 end
 
