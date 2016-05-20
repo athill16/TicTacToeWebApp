@@ -66,30 +66,30 @@ post '/humanvshuman' do
 		space_chosen = space_chosen.to_i
 		if valid_position?(session[:board], space_chosen-1) == true
 			session[:board] = update_game_board(session[:board], space_chosen-1, session[:player_one_marker])  
+			if has_game_been_won?(session[:board], session[:player_one_marker]) == true
+				erb :player_one_wins, :locals => {:board => session[:board]}
+			elsif has_game_been_tied?(session[:board]) == true
+				erb :tie_game, :locals => {:board => session[:board]}
+			else
+				erb :human_vs_human_player_two, :locals => {:board => session[:board], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker]}
+			end
 		elsif valid_position?(session[:board], space_chosen-1) == false
 			erb :human_vs_human_player_one, :locals => {:board => session[:board], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker]}
-		end
-		if has_game_been_won?(session[:board], session[:player_one_marker]) == true
-			erb :player_one_wins, :locals => {:board => session[:board]}
-		elsif has_game_been_tied?(session[:board]) == true
-			erb :tie_game, :locals => {:board => session[:board]}
-		else
-			erb :human_vs_human_player_two, :locals => {:board => session[:board], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker]}
 		end
 	elsif array % 2 == 0
 		space_chosen = params[:choice]
 		space_chosen = space_chosen.to_i
 		if valid_position?(session[:board], space_chosen-1) == true
 			session[:board] = update_game_board(session[:board], space_chosen-1, session[:player_two_marker])  
+			if has_game_been_won?(session[:board], session[:player_two_marker]) == true
+				erb :player_two_wins, :locals => {:board => session[:board]}
+			elsif has_game_been_tied?(session[:board]) == true
+				erb :tie_game, :locals => {:board => session[:board]}
+			else
+				erb :human_vs_human_player_one, :locals => {:board => session[:board], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker]}
+			end
 		elsif valid_position?(session[:board], space_chosen-1) == false
 			erb :human_vs_human_player_two, :locals => {:board => session[:board], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker]}
-		end
-		if has_game_been_won?(session[:board], session[:player_two_marker]) == true
-			erb :player_two_wins, :locals => {:board => session[:board]}
-		elsif has_game_been_tied?(session[:board]) == true
-			erb :tie_game, :locals => {:board => session[:board]}
-		else
-			erb :human_vs_human_player_one, :locals => {:board => session[:board], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker]}
 		end
 	end
 end
