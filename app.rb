@@ -33,9 +33,8 @@ post '/playermarker' do
 		else 
 			player2 = {:player_mode => Sequential.new, :marker => session[:player_two_marker]}
 		end
-		board = create_new_game_board
-		board = play_game(player1, player2, board)
-		erb :ai_game, :locals => {:player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker], :player_one => session[:player_one], :player_two => session[:player_two], :board => board}
+		session[:board] = play_game(player1, player2, session[:board])
+		erb :ai_game, :locals => {:player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker], :player_one => session[:player_one], :player_two => session[:player_two], :board => session[:board]}
 	elsif session[:player_one] == "Human" && session[:player_two] == "Human"
 		erb :human_vs_human_player_one, :locals => {:board => session[:board], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker]}
 	elsif session[:player_one] == "Human" && session[:player_two] == "Simple AI"
@@ -48,7 +47,7 @@ post '/playermarker' do
 		erb :simple_vs_human, :locals => {:board => session[:board]}
 	else
 		move = Sequential.new.get_move(session[:board])
-		board = update_game_board(session[:board], move-1, session[:player_one_marker])				
+		session[:board] = update_game_board(session[:board], move-1, session[:player_one_marker])				
 		erb :sequential_vs_human, :locals => {:board => session[:board]}
 	end
 end
@@ -73,7 +72,7 @@ post '/humanvshuman' do
 			else
 				erb :human_vs_human_player_two, :locals => {:board => session[:board], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker]}
 			end
-		elsif valid_position?(session[:board], space_chosen-1) == false
+		else
 			erb :human_vs_human_player_one, :locals => {:board => session[:board], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker]}
 		end
 	elsif array % 2 == 0
@@ -88,7 +87,7 @@ post '/humanvshuman' do
 			else
 				erb :human_vs_human_player_one, :locals => {:board => session[:board], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker]}
 			end
-		elsif valid_position?(session[:board], space_chosen-1) == false
+		else
 			erb :human_vs_human_player_two, :locals => {:board => session[:board], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker]}
 		end
 	end
@@ -114,7 +113,7 @@ post '/humanvssimple' do
 				erb :human_vs_simple, :locals => {:board => session[:board]}
 			end	
 		end
-	elsif valid_position?(session[:board], space_chosen-1) == false
+	else
 		erb :human_vs_simple, :locals => {:board => session[:board]}
 	end
 end
@@ -139,7 +138,7 @@ post '/humanvssequential' do
 				erb :human_vs_sequential, :locals => {:board => session[:board]}
 			end	
 		end
-	elsif valid_position?(session[:board], space_chosen-1) == false
+	else
 		erb :human_vs_sequential, :locals => {:board => session[:board]}
 	end
 end
@@ -164,7 +163,7 @@ post '/simplevshuman' do
 				erb :simple_vs_human, :locals => {:board => session[:board]}
 			end	
 		end
-	elsif valid_position?(session[:board], space_chosen-1) == false
+	else
 		erb :simple_vs_human, :locals => {:board => session[:board]}
 	end
 end
@@ -189,7 +188,7 @@ post '/sequentialvshuman' do
 				erb :sequential_vs_human, :locals => {:board => session[:board]}
 			end	
 		end
-	elsif valid_position?(session[:board], space_chosen-1) == false
+	else
 		erb :sequential_vs_human, :locals => {:board => session[:board]}
 	end
 end
