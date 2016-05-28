@@ -1,7 +1,8 @@
+<form action = "/startgame" method = "post">
 Player one is <%=player_one_marker%> and player two is <%=player_two_marker%>.
 <br>
 <br>
-Here is the final game board of the AI game:
+Here is the current board:
 <br>
 <br> 
 <%=board[0]%> | <%=board[1]%> | <%=board[2]%>
@@ -13,3 +14,6 @@ Here is the final game board of the AI game:
 -----------
 <br>
 <%=board[6]%> | <%=board[7]%> | <%=board[8]%>
+<br>
+<button type = "submit" value = "Go.">Go.</button>
+</form>

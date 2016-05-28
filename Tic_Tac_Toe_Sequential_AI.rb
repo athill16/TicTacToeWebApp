@@ -5,6 +5,7 @@ class Sequential
 	def get_move(board)
 		array = get_available_spaces(board)
 		move = array[0]
+		move = move - 1
 	end
 
 end
