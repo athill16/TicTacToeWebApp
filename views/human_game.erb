@@ -1,105 +1,101 @@
 <!DOCTYPE html>
 <html>
 	<center>
+		<h2><%=current_player%>, make your move.</h2>
+		<hr>
 	<body>
 		<form action = "/humanmove" method = "post">
-		<canvas id = "canvas1"  width="100" height="100" style="border:1px solid black" ></canvas>
-			<script>
-  			var canvas = document.getElementById('canvas1');
-  			var ctx = canvas.getContext('2d');
-			  ctx.fillStyle= "red";
-			  ctx.font = "bold 25pt Tahoma";
-			  ctx.fillText('<%=board[0]%>',41,63);
-			</script>
-		<canvas id = "canvas2"  width="100" height="100" style="border:1px solid black" ></canvas>
-			<script>
-  			var canvas = document.getElementById('canvas2');
-  			var ctx = canvas.getContext('2d');
-			  ctx.fillStyle= "red";
-			  ctx.font = "bold 25pt Tahoma";
-			  ctx.fillText('<%=board[1]%>',41,63);
-			</script>
-		<canvas id = "canvas3"  width="100" height="100" style="border:1px solid black" ></canvas>
-			<script>
-  			var canvas = document.getElementById('canvas3');
-  			var ctx = canvas.getContext('2d');
-			  ctx.fillStyle= "red";
-			  ctx.font = "bold 25pt Tahoma";
-			  ctx.fillText('<%=board[2]%>',41,63);
-			</script>
-		<br>
-		<canvas id = "canvas4"  width="100" height="100" style="border:1px solid black" ></canvas>
-			<script>
-  			var canvas = document.getElementById('canvas4');
-  			var ctx = canvas.getContext('2d');
-			  ctx.fillStyle= "red";
-			  ctx.font = "bold 25pt Tahoma";
-			  ctx.fillText('<%=board[3]%>',41,63);
-			</script>
-		<canvas id = "canvas5"  width="100" height="100" style="border:1px solid black" ></canvas>
-			<script>
-  			var canvas = document.getElementById('canvas5');
-  			var ctx = canvas.getContext('2d');
-			  ctx.fillStyle= "red";
-			  ctx.font = "bold 25pt Tahoma";
-			  ctx.fillText('<%=board[4]%>',41,63);
-			</script>
-		<canvas id = "canvas6"  width="100" height="100" style="border:1px solid black" ></canvas>
-			<script>
-  			var canvas = document.getElementById('canvas6');
-  			var ctx = canvas.getContext('2d');
-			  ctx.fillStyle= "red";
-			  ctx.font = "bold 25pt Tahoma";
-			  ctx.fillText('<%=board[5]%>',41,63);
-			</script>
-		<br>
-		<canvas id = "canvas7"  width="100" height="100" style="border:1px solid black" ></canvas>
-			<script>
-  			var canvas = document.getElementById('canvas7');
-  			var ctx = canvas.getContext('2d');
-			  ctx.fillStyle= "red";
-			  ctx.font = "bold 25pt Tahoma";
-			  ctx.fillText('<%=board[6]%>',41,63);
-			</script>
-		<canvas id = "canvas8"  width="100" height="100" style="border:1px solid black" ></canvas>
-			<script>
-  			var canvas = document.getElementById('canvas8');
-  			var ctx = canvas.getContext('2d');
-			  ctx.fillStyle= "red";
-			  ctx.font = "bold 25pt Tahoma";
-			  ctx.fillText('<%=board[7]%>',41,63);
-			</script>
-		<canvas id = "canvas9"  width="100" height="100" style="border:1px solid black" ></canvas>
-			<script>
-  			var canvas = document.getElementById('canvas9');
-  			var ctx = canvas.getContext('2d');
-			  ctx.fillStyle= "red";
-			  ctx.font = "bold 25pt Tahoma";
-			  ctx.fillText('<%=board[8]%>',41,63);
-			</script>
+			<canvas id = "canvas1"  width="100" height="100" style="border:1px solid black" ></canvas>
+				<script>
+	  			var canvas = document.getElementById('canvas1');
+	  			var ctx = canvas.getContext('2d');
+				  ctx.fillStyle= "red";
+				  ctx.font = "bold 25pt Tahoma";
+				  ctx.fillText('<%=board[0]%>',41,63);
+				</script>
+				<input type = "radio" name = "choice" value = "0">
+			<canvas id = "canvas2"  width="100" height="100" style="border:1px solid black" ></canvas>
+				<script>
+	  			var canvas = document.getElementById('canvas2');
+	  			var ctx = canvas.getContext('2d');
+				  ctx.fillStyle= "red";
+				  ctx.font = "bold 25pt Tahoma";
+				  ctx.fillText('<%=board[1]%>',41,63);
+				</script>
+				<input type = "radio" name = "choice" value = "1">
+			<canvas id = "canvas3"  width="100" height="100" style="border:1px solid black" ></canvas>
+				<script>
+	  			var canvas = document.getElementById('canvas3');
+	  			var ctx = canvas.getContext('2d');
+				  ctx.fillStyle= "red";
+				  ctx.font = "bold 25pt Tahoma";
+				  ctx.fillText('<%=board[2]%>',41,63);
+				</script>
+				<input type = "radio" name = "choice" value = "2">
+			<br>
+			<canvas id = "canvas4"  width="100" height="100" style="border:1px solid black" ></canvas>
+				<script>
+	  			var canvas = document.getElementById('canvas4');
+	  			var ctx = canvas.getContext('2d');
+				  ctx.fillStyle= "red";
+				  ctx.font = "bold 25pt Tahoma";
+				  ctx.fillText('<%=board[3]%>',41,63);
+				</script>
+				<input type = "radio" name = "choice" value = "3">
+			<canvas id = "canvas5"  width="100" height="100" style="border:1px solid black" ></canvas>
+				<script>
+	  			var canvas = document.getElementById('canvas5');
+	  			var ctx = canvas.getContext('2d');
+				  ctx.fillStyle= "red";
+				  ctx.font = "bold 25pt Tahoma";
+				  ctx.fillText('<%=board[4]%>',41,63);
+				</script>
+				<input type = "radio" name = "choice" value = "4">
+			<canvas id = "canvas6"  width="100" height="100" style="border:1px solid black" ></canvas>
+				<script>
+	  			var canvas = document.getElementById('canvas6');
+	  			var ctx = canvas.getContext('2d');
+				  ctx.fillStyle= "red";
+				  ctx.font = "bold 25pt Tahoma";
+				  ctx.fillText('<%=board[5]%>',41,63);
+				</script>
+				<input type = "radio" name = "choice" value = "5">
+			<br>
+			<canvas id = "canvas7"  width="100" height="100" style="border:1px solid black" ></canvas>
+				<script>
+	  			var canvas = document.getElementById('canvas7');
+	  			var ctx = canvas.getContext('2d');
+				  ctx.fillStyle= "red";
+				  ctx.font = "bold 25pt Tahoma";
+				  ctx.fillText('<%=board[6]%>',41,63);
+				</script>
+				<input type = "radio" name = "choice" value = "6">
+			<canvas id = "canvas8"  width="100" height="100" style="border:1px solid black" ></canvas>
+				<script>
+	  			var canvas = document.getElementById('canvas8');
+	  			var ctx = canvas.getContext('2d');
+				  ctx.fillStyle= "red";
+				  ctx.font = "bold 25pt Tahoma";
+				  ctx.fillText('<%=board[7]%>',41,63);
+				</script>
+				<input type = "radio" name = "choice" value = "7">
+			<canvas id = "canvas9"  width="100" height="100" style="border:1px solid black" ></canvas>
+				<script>
+	  			var canvas = document.getElementById('canvas9');
+	  			var ctx = canvas.getContext('2d');
+				  ctx.fillStyle= "red";
+				  ctx.font = "bold 25pt Tahoma";
+				  ctx.fillText('<%=board[8]%>',41,63);
+				</script>
+				<input type = "radio" name = "choice" value = "8">
 	</body>
+	<br>
+	<br>
+	<input type = "submit" name = "submit">
 	</center>
 </html>
 
 
-
-
-IGNORE: <%=current_player%>, make your move:
-<!-- <br>
-<form action = "/humanmove" method = "post">
-<input type = "radio" name = "choice" value = "0"><%=board[0]%>
-<input type = "radio" name = "choice" value = "1"><%=board[1]%>
-<input type = "radio" name = "choice" value = "2"><%=board[2]%>
-<br>
-<input type = "radio" name = "choice" value = "3"><%=board[3]%>
-<input type = "radio" name = "choice" value = "4"><%=board[4]%>
-<input type = "radio" name = "choice" value = "5"><%=board[5]%>
-<br>
-<input type = "radio" name = "choice" value = "6"><%=board[6]%> 
-<input type = "radio" name = "choice" value = "7"><%=board[7]%> 
-<input type = "radio" name = "choice" value = "8"><%=board[8]%>
-<input type = "submit" name = "submit">
-</form> -->
 
 
 
