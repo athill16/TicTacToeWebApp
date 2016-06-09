@@ -1,16 +1,24 @@
-Player one is <%=player_one%> and player two is <%=player_two%>.
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>Web app.</title>	
 	</head>
-	<body>
-		<h4>Would you like player one or two to be X?</h4>
-		<form action = "/playermarker" method = "post">
-			<select name = "choice_for_x">
- 			<option value = "player_one">Player one</option>
-  			<option value = "player_two">Player two</option>
-  			<input type = "submit">
-  		</form>
-	</body>
+	<center>
+		<body>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<h2>Player one is <%=player_one%> and player two is <%=player_two%>.</h2>
+			<h4>Would you like player one or two to be X?</h4>
+			<form action = "/playermarker" method = "post">
+				<select name = "choice_for_x">
+	 			<option value = "player_one">Player one</option>
+	  			<option value = "player_two">Player two</option>
+	  			<input type = "submit">
+	  		</form>
+		</body>
+	</center>
 </html>

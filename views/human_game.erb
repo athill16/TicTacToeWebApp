@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
-	<center>
+	<form action = "/humanmove" method = "post">
+		<br>
+		<br>
+		<br>
+		<br>
+		<center>
 		<h2><%=current_player%>, make your move.</h2>
+		<br>
 		<hr>
-	<body>
-		<form action = "/humanmove" method = "post">
+		<br>
+		<body>
 			<canvas id = "canvas1"  width="100" height="100" style="border:1px solid black" ></canvas>
 				<script>
 	  			var canvas = document.getElementById('canvas1');
@@ -88,11 +94,12 @@
 				  ctx.fillText('<%=board[8]%>',41,63);
 				</script>
 				<input type = "radio" name = "choice" value = "8">
-	</body>
-	<br>
-	<br>
-	<input type = "submit" name = "submit">
-	</center>
+		</body>
+				<br>
+				<br>
+				<input type = "submit" name = "submit">
+		</center>
+	</form>
 </html>
 
 
