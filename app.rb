@@ -13,6 +13,12 @@ class MyApp < Sinatra::Base
 	post '/input' do
 		session[:player_one] = params[:player_one]
 		session[:player_two] = params[:player_two]
+		redirect '/playermarker?player_one=' + session[:player_one] + '&player_two=' + session[:player_two]	
+	end
+
+	get '/playermarker' do 
+		session[:player_one] = params[:player_one]
+		session[:player_two] = params[:player_two]
 		erb :player_one_marker, :locals => {:player_one => session[:player_one], :player_two => session[:player_two]}
 	end
 
