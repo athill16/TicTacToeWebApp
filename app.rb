@@ -70,17 +70,6 @@ class MyApp < Sinatra::Base
 	end
 
 	get '/switchplayers' do
-		if session[:current_player][:player_mode] == "Human"
-			redirect '/switchhumanplayers'
-		elsif session[:current_player] == session[:player_one]
-			session[:current_player] = session[:player_two]
-		else
-			session[:current_player] = session[:player_one]
-		end
-		erb :play_game, :locals => {:player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker], :board => session[:board]}
-	end
-
-	get '/switchhumanplayers' do
 		if session[:current_player] == session[:player_one]
 			session[:current_player] = session[:player_two]
 		else
@@ -108,7 +97,7 @@ class MyApp < Sinatra::Base
 			elsif has_game_been_tied?(session[:board]) == true
 				erb :tie_game, :locals => {:board => session[:board]}
 			else
-				redirect '/switchhumanplayers'
+				redirect '/switchplayers'
 			end
 		else 
 			if session[:current_player] == session[:player_one]
