@@ -10,17 +10,46 @@ class MyApp < Sinatra::Base
 		erb :choose_players
 	end
 
-	post '/input' do
+	post '/chooseplayertypes' do
 		session[:player_one] = params[:player_one]
 		session[:player_two] = params[:player_two]
-		redirect '/playermarker?player_one=' + session[:player_one] + '&player_two=' + session[:player_two]	
+		# redirect '/playermarker?player_one=' + session[:player_one] + '&player_two=' + session[:player_two]	
+		if session[:player_one] == "Human" && session[:player_two] == "Human"
+			erb :ask_players_for_names
+		elsif session[:player_one] == "Human"
+			session[:player_two_name] = session[:player_two]
+			erb :ask_player_one_for_name
+		elsif session[:player_two] == "Human"
+			session[:player_one_name] = session[:player_one]			
+			erb :ask_player_two_for_name
+		else 
+			session[:player_one_name] = session[:player_one]
+			session[:player_two_name] = session[:player_two]
+			erb :player_one_marker, :locals => {:player_one_name => session[:player_one_name], :player_two_name => session[:player_two_name]}
+		end
 	end
 
-	get '/playermarker' do 
-		session[:player_one] = params[:player_one]
-		session[:player_two] = params[:player_two]
-		erb :player_one_marker, :locals => {:player_one => session[:player_one], :player_two => session[:player_two]}
+	post '/getplayernames' do
+		session[:player_one_name] = params[:player_one_name]
+		session[:player_two_name] = params[:player_two_name]
+		erb :player_one_marker, :locals => {:player_one_name => session[:player_one_name], :player_two_name => session[:player_two_name]}
 	end
+
+	post '/getplayeronename' do
+		session[:player_one_name] = params[:player_one_name]
+		erb :player_one_marker, :locals => {:player_one_name => session[:player_one_name], :player_two_name => session[:player_two_name]}
+	end
+
+	post '/getplayertwoname' do
+		session[:player_two_name] = params[:player_two_name]
+		erb :player_one_marker, :locals => {:player_one_name => session[:player_one_name], :player_two_name => session[:player_two_name]}
+	end
+
+	# get '/playermarker' do 
+	# 	session[:player_one] = params[:player_one]
+	# 	session[:player_two] = params[:player_two]
+	# 	erb :player_one_marker, :locals => {:player_one => session[:player_one], :player_two => session[:player_two]}
+	# end
 
 	post '/playermarker' do
 		choice_for_x = params[:choice_for_x]
@@ -48,15 +77,15 @@ class MyApp < Sinatra::Base
 		end
 		session[:board] = create_new_game_board
 		session[:current_player] = session[:player_one]
-		erb :play_game, :locals => {:player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker], :board => session[:board]}
+		erb :play_game, :locals => {:player_one => session[:player_one_name], :player_two => session[:player_two_name], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker], :board => session[:board]}
 	end
 
 	post '/startgame' do
 		if session[:current_player][:player_mode] == "Human"
 			if session[:current_player] == session[:player_one]
-				erb :human_game, :locals => {:board => session[:board], :current_player => "Player one"}
+				erb :human_game, :locals => {:board => session[:board], :current_player => session[:player_one_name]}
 			else 
-				erb :human_game, :locals => {:board => session[:board], :current_player => "Player two"}
+				erb :human_game, :locals => {:board => session[:board], :current_player => session[:player_two_name]}
 			end
 		else
 			session[:move] = session[:current_player][:player_mode].get_move(session[:board])
@@ -82,7 +111,7 @@ class MyApp < Sinatra::Base
 			session[:current_player] = session[:player_one]
 		end
 		if session[:current_player][:player_mode] != "Human"
-			erb :play_game, :locals => {:player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker], :board => session[:board]}
+			erb :play_game, :locals => {:player_one => session[:player_one_name], :player_two => session[:player_two_name], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker], :board => session[:board]}
 		elsif session[:current_player] == session[:player_one]
 			erb :human_game, :locals => {:board => session[:board], :current_player => "Player one"}
 		else 
