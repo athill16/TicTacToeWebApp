@@ -142,8 +142,12 @@ class MyApp < Sinatra::Base
 			end
 		end	
 	end
-end
 
+	post '/newgame' do
+		redirect '/'
+	end
+
+end
 
 
 
