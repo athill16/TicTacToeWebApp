@@ -1,3 +1,9 @@
+.board {
+    color: black;
+    background: none;
+    border: none;
+}
+
 table {
 	border: .1em solid black;
 	font-size: 2em;
