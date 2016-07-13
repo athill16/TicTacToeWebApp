@@ -1,0 +1,9 @@
+table {
+	border: .1em solid black;
+	font-size: 2em;
+}
+
+td {
+    border: .3em solid black; 
+	padding: 1em;
+}

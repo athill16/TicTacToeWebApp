@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="normalize.css">
+	</head>
 	<form action = "/humanmove" method = "post">
-		<br>
-		<br>
-		<br>
 		<center>
+		<br>
 		<h2><%=current_player%>, make your move.</h2>
 		<br>
 		<hr>
 		<br>
 		<body bgcolor="#7FFFD4">
-			<TABLE border = "5" cellspacing = "8" cellpadding = "40">
+			<TABLE>
 				<TR>
 			    	<TD> <input class = "board" type = "submit" name = "choice" value = <%=board[0]%>> </TD>
 			    	<TD> <input class = "board" type = "submit" name = "choice" value = <%=board[1]%>> </TD>
@@ -27,8 +29,8 @@
 				    <TD> <input class = "board" type = "submit" name = "choice" value = <%=board[8]%>> </TD>
 			  	</TR>
 			</TABLE>
+			<script src = "js/jquery-3.0.0.min.js"></script>
 			<script src = "js/squares.js"></script>
-			<script src = "jquery-3.0.0.min.js"></script>
 		</body>
 		</center>
 	</form>
