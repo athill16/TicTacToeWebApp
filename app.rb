@@ -113,14 +113,14 @@ class MyApp < Sinatra::Base
 		if session[:current_player][:player_mode] != "Human"
 			erb :play_game, :locals => {:player_one => session[:player_one_name], :player_two => session[:player_two_name], :player_one_marker => session[:player_one_marker], :player_two_marker => session[:player_two_marker], :board => session[:board]}
 		elsif session[:current_player] == session[:player_one]
-			erb :human_game, :locals => {:board => session[:board], :current_player => "Player one"}
+			erb :human_game, :locals => {:board => session[:board], :current_player => session[:player_one_name]}
 		else 
-			erb :human_game, :locals => {:board => session[:board], :current_player => "Player two"}
+			erb :human_game, :locals => {:board => session[:board], :current_player => session[:player_two_name]}
 		end
 	end
 
 	post '/humanmove' do
-		session[:move] = params[:choice].to_i
+		session[:move] = params[:choice].to_i-1
 		if valid_position?(session[:board], session[:move]) == true
 			session[:board] = update_game_board(session[:board], session[:move], session[:current_player][:marker])
 			if has_game_been_won?(session[:board], session[:current_player][:marker]) == true
@@ -136,9 +136,9 @@ class MyApp < Sinatra::Base
 			end
 		else 
 			if session[:current_player] == session[:player_one]
-				erb :human_game, :locals => {:board => session[:board], :current_player => "Player one"}
+				erb :human_game, :locals => {:board => session[:board], :current_player => session[:player_one_name]}
 			else
-				erb :human_game, :locals => {:board => session[:board], :current_player => "Player two"}
+				erb :human_game, :locals => {:board => session[:board], :current_player => session[:player_two_name]}
 			end
 		end	
 	end
